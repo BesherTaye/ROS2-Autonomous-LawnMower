@@ -1,0 +1,423 @@
+<?xml version="1.0" ?>
+<sdf version="1.10">
+
+  <world name="test_world">
+
+    <!-- Runs the physics simulation -->
+    <plugin
+      filename="gz-sim-physics-system"
+      name="gz::sim::systems::Physics">
+    </plugin>
+
+    <!-- Provides services for creating / removing models at runtime -->
+    <plugin
+      filename="gz-sim-user-commands-system"
+      name="gz::sim::systems::UserCommands">
+    </plugin>
+
+    <!-- Publishes the scene so the Gazebo GUI can display the world -->
+    <plugin
+      filename="gz-sim-scene-broadcaster-system"
+      name="gz::sim::systems::SceneBroadcaster">
+    </plugin>
+
+    <!-- Runs rendering-based sensors such as GPU LiDAR -->
+    <plugin
+      filename="gz-sim-sensors-system"
+      name="gz::sim::systems::Sensors">
+
+      <render_engine>ogre</render_engine>
+    </plugin>
+
+    <!-- IMU system -->
+    <plugin
+      filename="gz-sim-imu-system"
+      name="gz::sim::systems::Imu">
+    </plugin>
+
+
+    <physics name="1ms" type="ode">
+
+      <max_step_size>0.001</max_step_size>
+
+      <real_time_factor>1</real_time_factor>
+
+      <real_time_update_rate>1000</real_time_update_rate>
+
+    </physics>
+
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+
+        <collision name="collision">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </collision>
+
+        <visual name="visual">
+          <geometry>
+            <plane>
+              <normal>0 0 1</normal>
+              <size>100 100</size>
+            </plane>
+          </geometry>
+        </visual>
+
+      </link>
+    </model>
+
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <direction>-0.5 0.1 -0.9</direction>
+      <diffuse>1 1 1 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+    </light>
+
+
+  <!-- ===================================================== -->
+  <!-- SLAM TEST ENVIRONMENT                                 -->
+  <!-- ===================================================== -->
+
+  <!-- Front wall -->
+  <model name="front_wall">
+    <static>true</static>
+
+    <pose>4 0 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Back wall -->
+  <model name="back_wall">
+    <static>true</static>
+
+    <pose>-4 0 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Left wall -->
+  <model name="left_wall">
+    <static>true</static>
+
+    <pose>0 4 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Right wall -->
+  <model name="right_wall">
+    <static>true</static>
+
+    <pose>0 -4 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Internal obstacle 1 -->
+  <model name="box_1">
+    <static>true</static>
+
+    <pose>1.5 1.5 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>1.0 1.0 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>1.0 1.0 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Internal obstacle 2 -->
+  <model name="box_2">
+    <static>true</static>
+
+    <pose>-1.5 -1.0 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>      <!-- ===================================================== -->
+  <!-- SLAM TEST ENVIRONMENT                                 -->
+  <!-- ===================================================== -->
+
+  <!-- Front wall -->
+  <model name="front_wall">
+    <static>true</static>
+
+    <pose>4 0 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Back wall -->
+  <model name="back_wall">
+    <static>true</static>
+
+    <pose>-4 0 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.2 8.0 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Left wall -->
+  <model name="left_wall">
+    <static>true</static>
+
+    <pose>0 4 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Right wall -->
+  <model name="right_wall">
+    <static>true</static>
+
+    <pose>0 -4 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>8.0 0.2 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Internal obstacle 1 -->
+  <model name="box_1">
+    <static>true</static>
+
+    <pose>1.5 1.5 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>1.0 1.0 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>1.0 1.0 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+
+  <!-- Internal obstacle 2 -->
+  <model name="box_2">
+    <static>true</static>
+
+    <pose>-1.5 -1.0 0.5 0 0 0</pose>
+
+    <link name="link">
+
+      <collision name="collision">
+        <geometry>
+          <box>
+            <size>0.8 1.5 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.8 1.5 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+          <box>
+            <size>0.8 1.5 1.0</size>
+          </box>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <box>
+            <size>0.8 1.5 1.0</size>
+          </box>
+        </geometry>
+      </visual>
+
+    </link>
+  </model>
+
+  </world>
+</sdf>

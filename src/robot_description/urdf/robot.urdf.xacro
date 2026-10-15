@@ -1,0 +1,607 @@
+<?xml version="1.0"?>
+
+<robot
+  xmlns:xacro="http://www.ros.org/wiki/xacro"
+  name="my_robot">
+
+  <!-- ===================================================== -->
+  <!-- ROBOT DIMENSIONS                                      -->
+  <!-- ===================================================== -->
+
+  <xacro:property name="body_length" value="0.60"/>
+  <xacro:property name="body_width" value="0.40"/>
+  <xacro:property name="body_height" value="0.20"/>
+
+  <xacro:property name="wheel_radius" value="0.10"/>
+  <xacro:property name="wheel_width" value="0.05"/>
+
+  <xacro:property name="wheel_separation" value="0.45"/>
+
+  <xacro:property name="body_mass" value="5.0"/>
+  <xacro:property name="wheel_mass" value="0.5"/>
+
+
+  <!-- ===================================================== -->
+  <!-- BASE LINK                                             -->
+  <!-- ===================================================== -->
+
+  <link name="base_link">
+
+    <visual>
+
+      <!-- Raise chassis to create ground clearance -->
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+
+      <geometry>
+        <box size="${body_length} ${body_width} ${body_height}"/>
+      </geometry>
+
+      <material name="blue">
+        <color rgba="0.1 0.3 0.8 1.0"/>
+      </material>
+
+    </visual>
+
+
+    <collision>
+
+      <!-- Same position as visual -->
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+
+      <geometry>
+        <box size="${body_length} ${body_width} ${body_height}"/>
+      </geometry>
+
+    </collision>
+
+
+    <inertial>
+
+      <!-- Keep center of mass aligned with chassis -->
+      <origin xyz="0 0 0.05" rpy="0 0 0"/>
+
+      <mass value="${body_mass}"/>
+
+      <inertia
+        ixx="0.0833"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.1667"
+        iyz="0.0"
+        izz="0.2167"/>
+
+    </inertial>
+
+  </link>
+
+
+  <!-- ===================================================== -->
+  <!-- LEFT WHEEL                                            -->
+  <!-- ===================================================== -->
+
+  <link name="left_wheel">
+
+    <visual>
+
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder
+          radius="${wheel_radius}"
+          length="${wheel_width}"/>
+      </geometry>
+
+      <material name="black">
+        <color rgba="0.05 0.05 0.05 1.0"/>
+      </material>
+
+    </visual>
+
+
+    <collision>
+
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder
+          radius="${wheel_radius}"
+          length="${wheel_width}"/>
+      </geometry>
+
+    </collision>
+
+
+    <inertial>
+
+      <mass value="${wheel_mass}"/>
+
+      <inertia
+        ixx="0.0029"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0050"
+        iyz="0.0"
+        izz="0.0029"/>
+
+    </inertial>
+
+  </link>
+
+
+  <joint name="left_wheel_joint" type="continuous">
+
+    <parent link="base_link"/>
+    <child link="left_wheel"/>
+
+    <origin
+      xyz="0 ${wheel_separation / 2.0} 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 -1 0"/>
+
+  </joint>
+
+
+  <!-- ===================================================== -->
+  <!-- RIGHT WHEEL                                           -->
+  <!-- ===================================================== -->
+
+  <link name="right_wheel">
+
+    <visual>
+
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder
+          radius="${wheel_radius}"
+          length="${wheel_width}"/>
+      </geometry>
+
+      <material name="black"/>
+
+    </visual>
+
+
+    <collision>
+
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+
+      <geometry>
+        <cylinder
+          radius="${wheel_radius}"
+          length="${wheel_width}"/>
+      </geometry>
+
+    </collision>
+
+
+    <inertial>
+
+      <mass value="${wheel_mass}"/>
+
+      <inertia
+        ixx="0.0029"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0050"
+        iyz="0.0"
+        izz="0.0029"/>
+
+    </inertial>
+
+  </link>
+
+
+  <joint name="right_wheel_joint" type="continuous">
+
+    <parent link="base_link"/>
+    <child link="right_wheel"/>
+
+    <origin
+      xyz="0 ${-wheel_separation / 2.0} 0"
+      rpy="0 0 0"/>
+
+    <axis xyz="0 -1 0"/>
+
+  </joint>
+
+
+  <!-- ===================================================== -->
+  <!-- FRONT CASTER                                          -->
+  <!-- ===================================================== -->
+
+  <link name="front_caster_link">
+
+    <visual>
+
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+
+      <material name="gray">
+        <color rgba="0.4 0.4 0.4 1.0"/>
+      </material>
+
+    </visual>
+
+
+    <collision>
+
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+
+    </collision>
+
+
+    <inertial>
+
+      <mass value="0.05"/>
+
+      <inertia
+        ixx="0.00005"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.00005"
+        iyz="0.0"
+        izz="0.00005"/>
+
+    </inertial>
+
+  </link>
+
+
+  <joint name="front_caster_joint" type="fixed">
+
+    <parent link="base_link"/>
+    <child link="front_caster_link"/>
+
+    <!--
+      Caster radius = 0.05
+      Center z = -0.05
+      Bottom = -0.10
+
+      Same ground level as drive wheels.
+    -->
+    <origin xyz="0.22 0 -0.05" rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ===================================================== -->
+  <!-- REAR CASTER                                           -->
+  <!-- ===================================================== -->
+
+  <link name="rear_caster_link">
+
+    <visual>
+
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+
+      <material name="gray"/>
+
+    </visual>
+
+
+    <collision>
+
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+
+    </collision>
+
+
+    <inertial>
+
+      <mass value="0.05"/>
+
+      <inertia
+        ixx="0.00005"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.00005"
+        iyz="0.0"
+        izz="0.00005"/>
+
+    </inertial>
+
+  </link>
+
+
+  <joint name="rear_caster_joint" type="fixed">
+
+    <parent link="base_link"/>
+    <child link="rear_caster_link"/>
+
+    <origin xyz="-0.22 0 -0.05" rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ===================================================== -->
+  <!-- LIDAR LINK                                            -->
+  <!-- ===================================================== -->
+
+  <link name="lidar_link">
+
+    <visual>
+
+      <geometry>
+        <cylinder
+          radius="0.05"
+          length="0.05"/>
+      </geometry>
+
+      <material name="red">
+        <color rgba="0.8 0.1 0.1 1.0"/>
+      </material>
+
+    </visual>
+
+
+    <collision>
+
+      <geometry>
+        <cylinder
+          radius="0.05"
+          length="0.05"/>
+      </geometry>
+
+    </collision>
+
+
+    <inertial>
+
+      <mass value="0.10"/>
+
+      <inertia
+        ixx="0.0001"
+        ixy="0.0"
+        ixz="0.0"
+        iyy="0.0001"
+        iyz="0.0"
+        izz="0.0001"/>
+
+    </inertial>
+
+  </link>
+
+
+  <joint name="lidar_joint" type="fixed">
+
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+
+    <!--
+      Chassis top is approximately z = 0.15 m.
+      Put the LiDAR safely above it.
+    -->
+    <origin xyz="0 0 0.23" rpy="0 0 0"/>
+
+  </joint>
+
+
+  <!-- ===================================================== -->
+<!-- IMU LINK                                              -->
+<!-- ===================================================== -->
+
+<link name="imu_link">
+
+  <visual>
+    <geometry>
+      <box size="0.04 0.04 0.02"/>
+    </geometry>
+
+    <material name="green">
+      <color rgba="0.1 0.8 0.1 1.0"/>
+    </material>
+  </visual>
+
+  <collision>
+    <geometry>
+      <box size="0.04 0.04 0.02"/>
+    </geometry>
+  </collision>
+
+  <inertial>
+    <mass value="0.05"/>
+
+    <inertia
+      ixx="0.00001"
+      ixy="0.0"
+      ixz="0.0"
+      iyy="0.00001"
+      iyz="0.0"
+      izz="0.00001"/>
+  </inertial>
+
+</link>
+
+
+<!-- ===================================================== -->
+<!-- IMU JOINT                                             -->
+<!-- ===================================================== -->
+
+<joint name="imu_joint" type="fixed">
+
+  <parent link="base_link"/>
+  <child link="imu_link"/>
+
+  <!-- Mount IMU near the center of the chassis -->
+  <origin xyz="0 0 0.18" rpy="0 0 0"/>
+
+</joint>
+
+  <!-- ===================================================== -->
+  <!-- GAZEBO WHEEL FRICTION                                 -->
+  <!-- ===================================================== -->
+
+  <gazebo reference="left_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+
+
+  <gazebo reference="right_wheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+
+
+  <!-- ===================================================== -->
+  <!-- GAZEBO CASTER FRICTION                                -->
+  <!-- ===================================================== -->
+
+  <gazebo reference="front_caster_link">
+
+    <!-- Low friction allows easy turning -->
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
+
+  </gazebo>
+
+
+  <gazebo reference="rear_caster_link">
+
+    <mu1>0.01</mu1>
+    <mu2>0.01</mu2>
+
+  </gazebo>
+
+
+  <!-- ===================================================== -->
+  <!-- LIDAR SENSOR                                          -->
+  <!-- ===================================================== -->
+
+  <gazebo reference="lidar_link">
+
+    <sensor name="lidar" type="gpu_lidar">
+
+      <!--
+        Gazebo's LiDAR rays in our setup are effectively
+        rotated 180 degrees relative to the robot.
+
+        Rotate the SENSOR itself by pi around Z while keeping
+        lidar_link aligned with base_link.
+
+        After this:
+            scan 0 deg    = robot front
+            scan +90 deg  = robot left
+            scan -90 deg  = robot right
+      -->
+      <pose>0 0 0 0 0 3.14159</pose>
+
+      <topic>/scan</topic>
+
+      <!-- LaserScan measurements are expressed in lidar_link -->
+      <gz_frame_id>lidar_link</gz_frame_id>
+
+      <update_rate>10</update_rate>
+
+      <always_on>true</always_on>
+
+      <visualize>true</visualize>
+
+      <lidar>
+
+        <scan>
+
+          <horizontal>
+
+            <samples>360</samples>
+
+            <resolution>1</resolution>
+
+            <min_angle>-3.14159</min_angle>
+            <max_angle>3.14159</max_angle>
+
+          </horizontal>
+
+        </scan>
+
+        <range>
+
+          <min>0.12</min>
+          <max>10.0</max>
+          <resolution>0.01</resolution>
+
+        </range>
+
+      </lidar>
+
+    </sensor>
+
+  </gazebo>
+
+
+  <!-- ===================================================== -->
+  <!-- DIFFERENTIAL DRIVE PLUGIN                             -->
+  <!-- ===================================================== -->
+
+  <gazebo>
+
+    <plugin
+      filename="gz-sim-diff-drive-system"
+      name="gz::sim::systems::DiffDrive">
+
+      <left_joint>right_wheel_joint</left_joint>
+      <right_joint>left_wheel_joint</right_joint>
+
+      <wheel_separation>${wheel_separation}</wheel_separation>
+      <wheel_radius>${wheel_radius}</wheel_radius>
+
+      <topic>/cmd_vel</topic>
+
+      <odom_topic>/odom</odom_topic>
+
+      <frame_id>odom</frame_id>
+      <child_frame_id>base_link</child_frame_id>
+
+    </plugin>
+
+  </gazebo>
+
+
+  <!-- ===================================================== -->
+  <!-- JOINT STATE PUBLISHER                                 -->
+  <!-- ===================================================== -->
+
+  <gazebo>
+
+    <plugin
+      filename="gz-sim-joint-state-publisher-system"
+      name="gz::sim::systems::JointStatePublisher">
+
+      <topic>joint_states</topic>
+
+      <joint_name>left_wheel_joint</joint_name>
+      <joint_name>right_wheel_joint</joint_name>
+
+    </plugin>
+
+  </gazebo>
+
+  <!-- ===================================================== -->
+  <!-- IMU SENSOR                                            -->
+  <!-- ===================================================== -->
+
+  <gazebo reference="imu_link">
+
+    <sensor name="imu_sensor" type="imu">
+
+      <topic>/imu</topic>
+
+      <update_rate>50</update_rate>
+
+      <always_on>true</always_on>
+
+    </sensor>
+
+  </gazebo>
+
+
+</robot>
