@@ -191,7 +191,7 @@ Expected state:
 active [3]
 ```
 
-## Run Crosshatch Lawn-Mower Coverage
+## Run Lawn-Mower Coverage Plan
 
 After the full autonomy stack is running:
 
