@@ -60,19 +60,19 @@ The project combines standard ROS 2 navigation components with custom ROS 2 node
 
 ## Screenshots
 
-### Gazebo simulation environment
+### Gazebo Simulation Environment
 
 ![Gazebo environment](screenshots/gazebo_environment.png)
 
-### Saved map, localization, and Nav2
+### Saved Map, Localization, and Nav2
 
 ![AMCL and Nav2 map](screenshots/amcl_nav2_map.png)
 
-### Nav2 costmaps and obstacle inflation
+### Nav2 Costmaps and Obstacle Inflation
 
 ![Nav2 costmaps](screenshots/nav2_costmaps.png)
 
-### Crosshatch coverage plan
+### Boustrophedon-inspired Coverage Plan
 
 The coverage extension performs a vertical serpentine sweep followed by a horizontal serpentine sweep. Nav2 is responsible for safe motion around the internal obstacles.
 
