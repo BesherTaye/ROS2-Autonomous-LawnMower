@@ -13,7 +13,7 @@ The project was developed from the robot model upward: simulation, sensor integr
 The goal of this project is to build an autonomous mobile robot capable of:
 
 - simulating realistic differential-drive motion,
-- perceiving obstacles using a 2D LiDAR,
+- perceiving obstacles using a 2D/3D LiDAR,
 - estimating its motion,
 - building a map of an unknown environment,
 - localizing itself inside a saved map,
