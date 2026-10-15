@@ -74,9 +74,12 @@ The project combines standard ROS 2 navigation components with custom ROS 2 node
 
 ### Boustrophedon-inspired Coverage Plan
 
-The coverage extension performs a vertical serpentine sweep followed by a horizontal serpentine sweep. Nav2 is responsible for safe motion around the internal obstacles.
+This project uses a **Boustrophedon-inspired serpentine coverage pattern**.
+
+The robot follows regularly spaced parallel sweep lanes across the map. The direction alternates between neighboring lanes.
 
 ![Crosshatch coverage](screenshots/crosshatch_coverage_plan.png)
+
 
 ## Repository Structure
 
@@ -196,12 +199,6 @@ After the full autonomy stack is running:
 source install/setup.bash
 ros2 run robot_control lawn_mower
 ```
-This project uses a 
-> Boustrophedon-inspired serpentine coverage pattern**
-
-but it does **not currently implement full Boustrophedon Cellular Decomposition**.
-
-The robot follows regularly spaced parallel sweep lanes across the map. The direction alternates between neighboring lanes.
 
 The coverage node sends two `NavigateThroughPoses` missions:
 
@@ -289,6 +286,18 @@ base_link
 - Improved sensor fusion
 - Autoware-oriented architecture and vehicle-scale autonomy
 
-## License
+# License
 
-A license has not been selected yet. Before publishing publicly, choose a license and replace the `TODO` license entries in both ROS package manifests.
+A license has not yet been selected.
+
+Before publishing or distributing the project as an open-source project, choose a license such as:
+
+- MIT
+- Apache-2.0
+- BSD-3-Clause
+
+and replace the `TODO` license entries in the ROS package manifests.
+
+## Project Keywords
+
+`ROS2` `ROS 2 Jazzy` `Gazebo Harmonic` `Nav2` `SLAM` `SLAM Toolbox` `AMCL` `EKF` `robot_localization` `LiDAR` `TF2` `Differential Drive` `Autonomous Mobile Robot` `Coverage Path Planning` `Boustrophedon` `Boustrophedon-Inspired Coverage` `Lawn Mower Robot` `Serpentine Coverage` `Crosshatch Coverage` `NavigateThroughPoses` `Costmaps` `Obstacle Avoidance` `RViz`
