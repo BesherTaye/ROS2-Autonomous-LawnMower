@@ -44,8 +44,6 @@ class LawnMowerNavigator(Node):
         #   - the robot footprint does not collide with walls
         #   - Nav2 inflation has enough room
         #   - localization error does not push the robot outside
-        #
-        # Change these values later if necessary.
 
         self.x_min = -3.20
         self.x_max = 3.20
@@ -69,7 +67,6 @@ class LawnMowerNavigator(Node):
         # =====================================================
         #
         # phase:
-        #
         #   0 = vertical coverage
         #   1 = horizontal coverage
         #   2 = mission finished
@@ -83,7 +80,6 @@ class LawnMowerNavigator(Node):
         # =====================================================
         #
         # Used for recording the actual robot trajectory:
-        #
         #     map -> base_link
 
         self.tf_buffer = Buffer()
@@ -96,7 +92,6 @@ class LawnMowerNavigator(Node):
         # =====================================================
         # TRANSIENT-LOCAL QOS FOR INTENDED PATHS
         # =====================================================
-        #
         # This allows RViz to receive the path even if RViz
         # starts after the path was originally published.
 
@@ -179,7 +174,6 @@ class LawnMowerNavigator(Node):
         # =====================================================
         # ACTUAL PATH TIMER
         # =====================================================
-        #
         # Record robot position 5 times per second.
 
         self.path_timer = self.create_timer(
