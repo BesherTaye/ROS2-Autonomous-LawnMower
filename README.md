@@ -41,10 +41,10 @@ The project was developed from the robot model upward: simulation, sensor integr
            /scan                  /odom                 /cmd_vel
              |                      |                      ^
              |                      v                      |
-             |              robot_localization            |
+             |              robot_localization             |
              |                    EKF                      |
              |                      |                      |
-             |               odom -> base_link            |
+             |               odom -> base_link             |
              |                      |                      |
              +----------+-----------+----------------------+
                         |
