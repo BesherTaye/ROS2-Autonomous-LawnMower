@@ -78,7 +78,7 @@ class ScanReader(Node):
             front_negative
         )
 
-        # Left and right already match the expected physical directions.
+        # Left and right match the expected physical directions.
         left_distance = self.get_sector_min(
             msg,
             60.0,
