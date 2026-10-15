@@ -1,6 +1,6 @@
 # ROS 2 Autonomous Lawn Mower
 
-A complete autonomous differential-drive mobile robot project built with **ROS 2 Jazzy**, **Gazebo Harmonic**, **Simultaneous Localization and Mapping - SLAM Toolbox**, **robot_localization**, **Adaptive Monte Carlo Localization - AMCL**, and **Nav2**.
+A complete autonomous differential-drive mobile robot project built with **ROS 2 Jazzy**, **Gazebo Harmonic**, **Simultaneous Localization and Mapping (SLAM) Toolbox**, **robot_localization**, **Adaptive Monte Carlo Localization (AMCL)**, and **Nav2**.
 
 The project was developed from the robot model upward: simulation, sensor integration, custom ROS 2 nodes, localization, mapping, autonomous navigation, and finally a crosshatch lawn-mower coverage mission.
 
@@ -10,14 +10,14 @@ The project was developed from the robot model upward: simulation, sensor integr
 
 The goal of this project is to build an autonomous mobile robot capable of:
 
-- simulating realistic differential-drive motion
-- perceiving obstacles using a 2D LiDAR
-- estimating robot motion
-- building a map of an unknown environment
-- localizing itself inside a saved map
-- planning collision-free paths
-- autonomously navigating to goals
-- performing systematic area coverage similar to an autonomous lawn mower
+- Simulating realistic differential-drive motion
+- Perceiving obstacles using a 2D LiDAR
+- Estimating robot motion
+- Building a map of an unknown environment
+- Localizing itself inside a saved map
+- Planning collision-free paths
+- Autonomously navigating to goals
+- Performing systematic area coverage similar to an autonomous lawn mower
 
 The project combines standard ROS 2 navigation components with custom ROS 2 nodes developed for obstacle avoidance, LiDAR processing, and area coverage.
 
