@@ -76,10 +76,6 @@ The project was developed from the robot model upward: simulation, sensor integr
 
 ![Nav2 costmaps](screenshots/nav2_costmaps.png)
 
-### Actual autonomous navigation trajectory
-
-![Actual navigation path](screenshots/actual_navigation_path.png)
-
 ### Crosshatch coverage plan
 
 The coverage extension performs a vertical serpentine sweep followed by a horizontal serpentine sweep. Nav2 is responsible for safe motion around the internal obstacles.
