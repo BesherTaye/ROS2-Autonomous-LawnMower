@@ -1,30 +1,26 @@
 # ROS 2 Autonomous Lawn Mower
 
-A complete autonomous differential-drive mobile robot project built with **ROS 2 Jazzy**, **Gazebo Harmonic**, **SLAM Toolbox**, **robot_localization**, **AMCL**, and **Nav2**.
+A complete autonomous differential-drive mobile robot project built with **ROS 2 Jazzy**, **Gazebo Harmonic**, **Simultaneous Localization and Mapping - SLAM Toolbox**, **robot_localization**, **Adaptive Monte Carlo Localization - AMCL**, and **Nav2**.
 
 The project was developed from the robot model upward: simulation, sensor integration, custom ROS 2 nodes, localization, mapping, autonomous navigation, and finally a crosshatch lawn-mower coverage mission.
 
 ![Gazebo and RViz autonomous navigation](screenshots/gazebo_rviz_navigation.png)
 
-## Features
+## Project Overview
 
-- Differential-drive mobile robot modeled in URDF/Xacro
-- Gazebo Harmonic simulation with custom test environment
-- 2D GPU LiDAR and IMU integration
-- ROS ↔ Gazebo topic bridge
-- Custom LaserScan processing node
-- Custom finite-state-machine obstacle avoidance node
-- EKF-based odometry using `robot_localization`
-- SLAM Toolbox mapping
-- Saved occupancy map
-- AMCL localization
-- Nav2 global planning and local control
-- Global and local Nav2 costmaps with obstacle inflation
-- Autonomous point-to-point navigation from RViz
-- Crosshatch lawn-mower coverage using `NavigateThroughPoses`
-- Intended vertical and horizontal coverage visualization
-- Actual robot trajectory visualization
-- One-command integrated bringup
+The goal of this project is to build an autonomous mobile robot capable of:
+
+- simulating realistic differential-drive motion
+- perceiving obstacles using a 2D LiDAR
+- estimating robot motion
+- building a map of an unknown environment
+- localizing itself inside a saved map
+- planning collision-free paths
+- autonomously navigating to goals
+- performing systematic area coverage similar to an autonomous lawn mower
+
+The project combines standard ROS 2 navigation components with custom ROS 2 nodes developed for obstacle avoidance, LiDAR processing, and area coverage.
+
 
 ## System Architecture
 
@@ -169,7 +165,7 @@ source install/setup.bash
 
 ## Run the Full Autonomous Stack
 
-The integrated bringup starts Gazebo, the bridge, EKF, map server + AMCL, Nav2, and RViz with timed startup ordering:
+The integrated bringup starts Gazebo, the bridge, Extended Kalman Filter (EKF), map server + AMCL, Nav2, and RViz with timed startup ordering:
 
 ```bash
 source /opt/ros/jazzy/setup.bash
@@ -200,6 +196,12 @@ After the full autonomy stack is running:
 source install/setup.bash
 ros2 run robot_control lawn_mower
 ```
+This project uses a 
+> Boustrophedon-inspired serpentine coverage pattern**
+
+but it does **not currently implement full Boustrophedon Cellular Decomposition**.
+
+The robot follows regularly spaced parallel sweep lanes across the map. The direction alternates between neighboring lanes.
 
 The coverage node sends two `NavigateThroughPoses` missions:
 
